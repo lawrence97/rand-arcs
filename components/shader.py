@@ -10,18 +10,25 @@ class Shader():
 	@staticmethod
 	def gen(path):
 
-		with open(path + Shader.v_name, "r") as file:
-			v_src = file.read()
 
-		with open(path + Shader.f_name, "r") as file:
-			f_src = file.read()
+		try:
+			with open(path + Shader.v_name, "r") as file:
+				v_src = file.read()
 
-		shader = compileProgram(
-			compileShader(v_src, GL_VERTEX_SHADER),
-			compileShader(f_src, GL_FRAGMENT_SHADER)
-		)
+			with open(path + Shader.f_name, "r") as file:
+				f_src = file.read()
 
-		return shader
+			shader = compileProgram(
+				compileShader(v_src, GL_VERTEX_SHADER),
+				compileShader(f_src, GL_FRAGMENT_SHADER)
+			)
+
+			return shader
+		
+		except FileNotFoundError as err:
+			print("\nProblem finding required files in /shader/ directory.")
+			print("Check shader files exist and names match definition in Shader component.\n")
+			raise err
 
 	@staticmethod
 	def del_program(program):
