@@ -1,6 +1,5 @@
 import glm
 from OpenGL.GL import *
-import numpy
 
 class Path():
 	arcs = 10
@@ -17,15 +16,15 @@ class Path():
 
 		# start point at origin
 		self.points.extend([0, 0, 0, *Path.point_col])
-		self.controls.extend(numpy.random.uniform(low=-5, high=5, size=3))
+		self.controls.extend(glm.linearRand(glm.vec3(-5, -5, -5), glm.vec3(5, 5, 5)))
 		self.controls.extend(Path.control_col)
 
 		for i in range(1, Path.arcs):
 			# last points location
 			current = [self.points[-6], self.points[-5], self.points[-4]]
 			# new random points
-			next = numpy.random.uniform(low=-5, high=5, size=3)
-			next_control = numpy.random.uniform(low=-5, high=5, size=3)
+			next = glm.linearRand(glm.vec3(-5, -5, -5), glm.vec3(5, 5, 5))
+			next_control = glm.linearRand(glm.vec3(-5, -5, -5), glm.vec3(5, 5, 5))
 
 			# gen segments for arc
 			for j in range(0, Path.segments):
